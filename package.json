@@ -6,13 +6,14 @@
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "electron": "electron public/clipboardWatcher.js",
-    "build": "electron-builder"
+    "build": "electron-builder --dir"
   },
   "build": {
     "appId": "com.cangrejo.clipper",
     "productName": "Clipper",
     "files": [
       "main.js",
+      "welcome.json",
       "preload.js",
       "dist/**/*", 
       "package.json"

@@ -4,7 +4,7 @@ const path = require('path');
 
 let mainWindow;
 const jsonFilePath = path.join(app.getPath('userData'), 'clipboard.json');
-const welcomeFilePath = fs.readFileSync(__dirname, 'welcome.json')
+const welcomeFilePath = path.join(__dirname, 'welcome.json');
 
 if (!fs.existsSync(jsonFilePath)) {
   if (fs.existsSync(welcomeFilePath)) {
