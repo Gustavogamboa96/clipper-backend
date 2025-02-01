@@ -4,11 +4,14 @@ const path = require('path');
 
 let mainWindow;
 const jsonFilePath = path.join(app.getPath('userData'), 'clipboard.json');
+const welcomeFilePath = fs.readFileSync(__dirname, 'welcome.json')
 
 if (!fs.existsSync(jsonFilePath)) {
-  fs.writeFileSync(jsonFilePath, JSON.stringify([]));
+  if (fs.existsSync(welcomeFilePath)) {
+    const welcome = fs.readFileSync(welcomeFilePath, 'utf-8');
+    fs.writeFileSync(jsonFilePath, welcome);
+  }
 }
-
 Menu.setApplicationMenu(null);
 
 
@@ -28,8 +31,11 @@ app.whenReady().then(() => {
     },
   });
 
-    mainWindow.loadURL('http://localhost:5173'); // Vite default port
-    mainWindow.webContents.openDevTools()
+    // mainWindow.loadURL('http://localhost:5173'); // Vite default port
+
+    // remember to remove '/' from static react build files in index.html
+    mainWindow.loadFile(path.join(__dirname, 'dist', 'index.html'));
+    // mainWindow.webContents.openDevTools()
 
   setInterval(() => {
     const text = clipboard.readText();
@@ -46,7 +52,7 @@ app.whenReady().then(() => {
         }
       });
     }
-  }, 500);
+  }, 1500);
 });
 
 // mainWindow.webContents.openDevTools()
@@ -81,5 +87,3 @@ ipcMain.on('close-app', () => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
 });
-
-

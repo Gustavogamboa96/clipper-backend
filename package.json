@@ -5,13 +5,37 @@
   "scripts": {
     "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "electron": "electron public/clipboardWatcher.js"
+    "electron": "electron public/clipboardWatcher.js",
+    "build": "electron-builder"
+  },
+  "build": {
+    "appId": "com.cangrejo.clipper",
+    "productName": "Clipper",
+    "files": [
+      "main.js",
+      "preload.js",
+      "dist/**/*", 
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Clipboard manager app",
   "devDependencies": {
-    "electron": "^34.0.2"
+    "electron": "^34.0.2",
+    "electron-builder": "^25.1.8"
   }
 }
